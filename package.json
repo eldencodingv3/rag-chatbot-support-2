@@ -1,6 +1,7 @@
 {
   "name": "rag-chatbot",
   "version": "1.0.0",
+  "type": "module",
   "description": "Node.js RAG chatbot for customer support FAQ",
   "main": "server.js",
   "scripts": {
@@ -15,6 +16,6 @@
     "express": "^4.21.0",
     "openai": "^4.73.0",
     "@lancedb/lancedb": "^0.13.0",
-    "apache-arrow": "^18.0.0"
+    "apache-arrow": "^17.0.0"
   }
 }
