@@ -7,11 +7,18 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openaiClient = null;
+function getOpenAI() {
+  if (!openaiClient) {
+    openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openaiClient;
+}
+
 let table;
 
 async function getEmbedding(text) {
-  const response = await openai.embeddings.create({
+  const response = await getOpenAI().embeddings.create({
     model: 'text-embedding-ada-002',
     input: text,
   });
@@ -53,6 +60,9 @@ export async function initializeEmbeddings() {
 }
 
 export async function searchFAQs(query, limit = 3) {
+  if (!table) {
+    throw new Error('Embeddings table not initialized. Call initializeEmbeddings() first.');
+  }
   const queryVector = await getEmbedding(query);
   const results = await table.vectorSearch(queryVector).limit(limit).toArray();
   return results;

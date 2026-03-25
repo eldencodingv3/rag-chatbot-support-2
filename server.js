@@ -10,18 +10,30 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+let embeddingsReady = false;
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openaiClient = null;
+function getOpenAI() {
+  if (!openaiClient) {
+    openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openaiClient;
+}
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ status: 'ok', embeddingsReady, timestamp: new Date().toISOString() });
 });
 
 // Chat endpoint
 app.post('/api/chat', async (req, res) => {
+  if (!embeddingsReady) {
+    return res.status(503).json({ error: 'Service initializing. Please try again shortly.' });
+  }
+
   try {
     const { message } = req.body;
     if (!message) {
@@ -37,7 +49,7 @@ app.post('/api/chat', async (req, res) => {
       .join('\n\n');
 
     // 3. Generate response with GPT-3.5-turbo
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         {
@@ -63,14 +75,19 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Initialize embeddings then start server
-initializeEmbeddings()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Failed to initialize embeddings:', err);
-    process.exit(1);
-  });
+// Start server first, THEN initialize embeddings in the background
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+
+  if (!process.env.OPENAI_API_KEY) {
+    console.warn('WARNING: OPENAI_API_KEY not set. Chat endpoint will not work.');
+    return;
+  }
+
+  initializeEmbeddings()
+    .then(() => {
+      embeddingsReady = true;
+      console.log('Embeddings ready');
+    })
+    .catch((err) => console.error('Failed to initialize embeddings:', err));
+});
