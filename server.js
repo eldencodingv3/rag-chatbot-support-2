@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+let embeddingsReady = false;
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -17,11 +19,15 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ status: 'ok', embeddingsReady, timestamp: new Date().toISOString() });
 });
 
 // Chat endpoint
 app.post('/api/chat', async (req, res) => {
+  if (!embeddingsReady) {
+    return res.status(503).json({ error: 'Service initializing. Please try again shortly.' });
+  }
+
   try {
     const { message } = req.body;
     if (!message) {
@@ -63,14 +69,19 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Initialize embeddings then start server
-initializeEmbeddings()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Failed to initialize embeddings:', err);
-    process.exit(1);
-  });
+// Start server first, THEN initialize embeddings in the background
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+
+  if (!process.env.OPENAI_API_KEY) {
+    console.warn('WARNING: OPENAI_API_KEY not set. Chat endpoint will not work.');
+    return;
+  }
+
+  initializeEmbeddings()
+    .then(() => {
+      embeddingsReady = true;
+      console.log('Embeddings ready');
+    })
+    .catch((err) => console.error('Failed to initialize embeddings:', err));
+});

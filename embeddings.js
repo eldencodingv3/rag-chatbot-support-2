@@ -53,6 +53,9 @@ export async function initializeEmbeddings() {
 }
 
 export async function searchFAQs(query, limit = 3) {
+  if (!table) {
+    throw new Error('Embeddings table not initialized. Call initializeEmbeddings() first.');
+  }
   const queryVector = await getEmbedding(query);
   const results = await table.vectorSearch(queryVector).limit(limit).toArray();
   return results;
