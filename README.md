@@ -1,2 +1,6 @@
-# rag-chatbot-support-2
-Node.js RAG chatbot for customer support FAQ with LanceDB and OpenAI
+# RAG Chatbot - Customer Support
+
+Node.js RAG chatbot that answers customer support questions using FAQ documents, LanceDB for vector search, and OpenAI GPT-3.5-turbo.
+
+## Setup
+Coming soon...
