@@ -15,7 +15,13 @@ let embeddingsReady = false;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openaiClient = null;
+function getOpenAI() {
+  if (!openaiClient) {
+    openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openaiClient;
+}
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -43,7 +49,7 @@ app.post('/api/chat', async (req, res) => {
       .join('\n\n');
 
     // 3. Generate response with GPT-3.5-turbo
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         {
