@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "question": "How do I reset my CloudSync Pro password?",
+    "answer": "Go to the login page and click 'Forgot Password'. Enter your registered email address and we'll send you a reset link. The link expires after 24 hours. If you don't receive the email, check your spam folder or contact support@cloudsyncpro.com.",
+    "category": "Account & Billing"
+  },
+  {
+    "id": 2,
+    "question": "What payment methods does CloudSync Pro accept?",
+    "answer": "We accept Visa, Mastercard, American Express, and PayPal. For Enterprise plans, we also support wire transfers and purchase orders. All payments are processed securely through Stripe.",
+    "category": "Account & Billing"
+  },
+  {
+    "id": 3,
+    "question": "How do I cancel my subscription?",
+    "answer": "You can cancel your subscription at any time from Settings > Billing > Cancel Plan. Your access will continue until the end of your current billing period. No refunds are issued for partial months, but you won't be charged again.",
+    "category": "Account & Billing"
+  },
+  {
+    "id": 4,
+    "question": "Why is my file sync failing?",
+    "answer": "File sync can fail for several reasons: 1) Check your internet connection. 2) Ensure the file isn't open in another application. 3) Verify the file size is under your plan's limit (5GB for Free, 25GB for Pro, unlimited for Enterprise). 4) Restart the CloudSync Pro desktop client. If the issue persists, check the sync log at Settings > Diagnostics > Sync Log.",
+    "category": "Technical Troubleshooting"
+  },
+  {
+    "id": 5,
+    "question": "CloudSync Pro is using too much CPU. How do I fix it?",
+    "answer": "High CPU usage usually occurs during initial sync or large batch uploads. To reduce it: 1) Go to Settings > Performance and set sync speed to 'Balanced' or 'Low'. 2) Pause sync during resource-intensive tasks. 3) Exclude large folders from sync via Settings > Selective Sync. 4) Make sure you're running the latest version of CloudSync Pro.",
+    "category": "Technical Troubleshooting"
+  },
+  {
+    "id": 6,
+    "question": "How do I resolve a sync conflict?",
+    "answer": "When two versions of the same file are edited simultaneously, CloudSync Pro creates a conflict copy. You'll see a notification in the system tray. Click it to open the Conflict Resolver, which shows both versions side by side. Choose the version to keep, or merge changes manually. Conflict copies are named 'filename (conflict YYYY-MM-DD).ext'.",
+    "category": "Technical Troubleshooting"
+  },
+  {
+    "id": 7,
+    "question": "What are the different CloudSync Pro pricing plans?",
+    "answer": "We offer three plans: Free (5GB storage, 2 devices, basic sync), Pro ($9.99/month — 500GB storage, unlimited devices, priority sync, version history), and Enterprise ($29.99/user/month — unlimited storage, admin console, SSO, audit logs, dedicated support). Annual billing saves 20%.",
+    "category": "Features & Pricing"
+  },
+  {
+    "id": 8,
+    "question": "Does CloudSync Pro support team collaboration?",
+    "answer": "Yes! Pro users can create shared folders and invite up to 10 collaborators. Enterprise users get full team workspaces with role-based permissions (Admin, Editor, Viewer), real-time co-editing, commenting, and activity feeds. Team features are managed from the Admin Console.",
+    "category": "Features & Pricing"
+  },
+  {
+    "id": 9,
+    "question": "Can I access my files offline?",
+    "answer": "Yes. Mark any file or folder as 'Available Offline' by right-clicking it in the CloudSync Pro desktop or mobile app. Offline files are stored locally and sync automatically when you reconnect. On mobile, go to the file and tap the download icon to make it available offline.",
+    "category": "Features & Pricing"
+  },
+  {
+    "id": 10,
+    "question": "How do I get started with CloudSync Pro?",
+    "answer": "Getting started is easy: 1) Sign up at cloudsyncpro.com. 2) Download the desktop client for Windows, macOS, or Linux. 3) Log in with your account. 4) Choose a local folder to sync. 5) Start adding files! Your files will sync automatically across all your devices. Check out our Quick Start Guide in the Help Center for a walkthrough.",
+    "category": "Getting Started"
+  },
+  {
+    "id": 11,
+    "question": "How do I install the CloudSync Pro mobile app?",
+    "answer": "Download CloudSync Pro from the Apple App Store (iOS 15+) or Google Play Store (Android 10+). Open the app, log in with your account credentials, and grant the requested permissions for file access and notifications. Your synced files will appear automatically.",
+    "category": "Getting Started"
+  },
+  {
+    "id": 12,
+    "question": "Is my data encrypted in CloudSync Pro?",
+    "answer": "Yes, we take security seriously. All files are encrypted in transit using TLS 1.3 and at rest using AES-256 encryption. Enterprise users can enable client-side encryption for zero-knowledge privacy, meaning even CloudSync Pro staff cannot access your files. We are SOC 2 Type II certified and GDPR compliant.",
+    "category": "Data & Security"
+  },
+  {
+    "id": 13,
+    "question": "Where are CloudSync Pro servers located?",
+    "answer": "Our infrastructure runs on data centers in the US (Virginia), EU (Frankfurt), and Asia-Pacific (Singapore). Enterprise customers can choose their preferred data residency region. All data centers are ISO 27001 certified and offer 99.99% uptime SLA.",
+    "category": "Data & Security"
+  },
+  {
+    "id": 14,
+    "question": "How do I enable two-factor authentication?",
+    "answer": "Go to Settings > Security > Two-Factor Authentication and click 'Enable'. You can use an authenticator app (Google Authenticator, Authy) or receive codes via SMS. We strongly recommend using an authenticator app for better security. Backup codes are provided during setup — store them safely.",
+    "category": "Data & Security"
+  },
+  {
+    "id": 15,
+    "question": "Can I recover deleted files?",
+    "answer": "Yes. Deleted files are moved to the Trash and kept for 30 days (Free plan) or 180 days (Pro and Enterprise plans). Go to the CloudSync Pro web app, click Trash in the sidebar, find the file, and click 'Restore'. Enterprise users also have access to full version history with point-in-time recovery.",
+    "category": "Features & Pricing"
+  }
+]
